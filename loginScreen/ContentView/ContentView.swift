@@ -27,8 +27,19 @@ struct ButtonView: View {
     @Binding var timer: Int
     
     var body: some View {
-        Button("Start") {
-            timer -= 1
+        //  По-другому инициализируем кнопку, потому что хотим изменить внешний вид ёё
+        Button(action: { timer -= 1}) {
+            Text("Start")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundStyle(.white)
         }
+        .frame(width: 200, height: 60)
+        .background(.red)
+        .clipShape(.rect(cornerRadius: 20))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(.black, lineWidth: 4)
+        )
     }
 }
