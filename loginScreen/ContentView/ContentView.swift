@@ -31,7 +31,7 @@ struct ButtonView: View {
     var body: some View {
         //  По-другому инициализируем кнопку, потому что хотим изменить внешний вид её
         Button(action: { contentViewVM.startTimer() }) {
-            Text("Start")
+            Text(contentViewVM.buttonTitle)
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
