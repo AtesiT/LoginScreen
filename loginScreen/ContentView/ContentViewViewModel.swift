@@ -1,7 +1,9 @@
 import Foundation
+import Combine
 
-final class ContentViewViewModel {
-    
+final class ContentViewViewModel: ObservableObject {
+    //  Свойство, позволяющее сообщать об изменении объекта
+    let objectWillChange = ObservableObjectPublisher()
     var counter = 3
     
     private var timer: Timer?
@@ -23,6 +25,8 @@ final class ContentViewViewModel {
         } else {
             killTimer()
         }
+        //  Отправляем сообщение о том, что наш класс изменился (свойство counter обновилось)
+        objectWillChange.send()
     }
     //  Недостаточно timer'у присвоить nil - нужно сам timer выгрузить из системы (инвалидировать)
     private func killTimer() {

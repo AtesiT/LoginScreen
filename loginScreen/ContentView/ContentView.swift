@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let contentViewVM = ContentViewViewModel()
-    
+    //  Получаем доступ к экземпляру класса из окружения. Затем, определяем тип данных, но не инициализируем (потому что он уже иницииализирован и находится в окружении).
+    @EnvironmentObject private var contentViewVM: ContentViewViewModel
     var body: some View {
         VStack {
             Text(contentViewVM.counter.formatted())
@@ -21,13 +21,15 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        //  Создаём локально в LivePreview
+        .environmentObject(ContentViewViewModel())
 }
 
 struct ButtonView: View {
-    let contentViewVM: ContentViewViewModel
+    @ObservedObject var contentViewVM: ContentViewViewModel
     
     var body: some View {
-        //  По-другому инициализируем кнопку, потому что хотим изменить внешний вид ёё
+        //  По-другому инициализируем кнопку, потому что хотим изменить внешний вид её
         Button(action: { contentViewVM.startTimer() }) {
             Text("Start")
                 .font(.title)
