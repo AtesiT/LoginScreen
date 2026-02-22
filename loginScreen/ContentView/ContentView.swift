@@ -3,8 +3,14 @@ import SwiftUI
 struct ContentView: View {
     //  Получаем доступ к экземпляру класса из окружения. Затем, определяем тип данных, но не инициализируем (потому что он уже иницииализирован и находится в окружении).
     @EnvironmentObject private var contentViewVM: ContentViewViewModel
+    @EnvironmentObject private var loginViewVM: LoginViewViewModel
+    
     var body: some View {
+        
         VStack {
+            Text("Hello, \(loginViewVM.name)!")
+                .padding(.top, 100)
+                .font(.largeTitle)
             Text(contentViewVM.counter.formatted())
                 .font(.largeTitle)
                 .padding(.top, 100)
@@ -23,6 +29,7 @@ struct ContentView: View {
     ContentView()
         //  Создаём локально в LivePreview
         .environmentObject(ContentViewViewModel())
+        .environmentObject(LoginViewViewModel())
 }
 
 struct ButtonView: View {
