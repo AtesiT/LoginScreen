@@ -1,17 +1,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var timer = 3
+    private let contentViewVM = ContentViewViewModel()
     
     var body: some View {
         VStack {
-            Text(timer.formatted())
+            Text(contentViewVM.counter.formatted())
                 .font(.largeTitle)
                 .padding(.top, 100)
             
             Spacer()
             
-            ButtonView(timer: $timer)
+            ButtonView(contentViewVM: contentViewVM)
             
             Spacer()
             
@@ -24,11 +24,11 @@ struct ContentView: View {
 }
 
 struct ButtonView: View {
-    @Binding var timer: Int
+    let contentViewVM: ContentViewViewModel
     
     var body: some View {
         //  По-другому инициализируем кнопку, потому что хотим изменить внешний вид ёё
-        Button(action: { timer -= 1}) {
+        Button(action: { contentViewVM.startTimer() }) {
             Text("Start")
                 .font(.title)
                 .fontWeight(.bold)
