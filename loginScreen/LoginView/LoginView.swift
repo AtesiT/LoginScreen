@@ -16,10 +16,12 @@ struct LoginView: View {
                 //  Устанавилваем padding справа, это отодвинет наш объект влево
                     .padding(.trailing, 25)
                 //  Терарный оператор для измнения цвета счётчика
-                    .foregroundStyle(loginViewVM.name.count <= 3 ? .red : .green)
+                    .foregroundStyle(loginViewVM.name.count >= 3 && loginViewVM.name.count < 20 ? .green : .red)
             }
+            .padding(.bottom, 15)
             Button(action: login) {
                 Label("OK", systemImage: "checkmark.circle")
+                    .foregroundStyle(loginViewVM.name.count >= 3 && loginViewVM.name.count < 20 ? .blue : .gray)
             }
         }
     }
