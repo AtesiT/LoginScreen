@@ -5,9 +5,17 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
-            TextField("Enter your name", text: $loginViewVM.name)
-                .multilineTextAlignment(.center)
-            
+            //  Используем ZStack, чтобы разместить элементы над друг другом и используем .trailing к нему, чтобы прижать вправо. Из-за того, что TextField занимает всю ширину, он прижмется влево, а Text прижмтся вправо.
+            ZStack(alignment: .trailing) {
+                TextField("Type your name...", text: $loginViewVM.name)
+                //  Устанавливаем padding, чтобы тем самым сузить textField
+                    .padding(.horizontal, 50)
+                //  Размещаем по центру
+                    .multilineTextAlignment(.center)
+                Text("\(loginViewVM.name.count)")
+                //  Устанавилваем padding справа, это отодвинет наш объект влево
+                    .padding(.trailing, 25)
+            }
             Button(action: login) {
                 Label("OK", systemImage: "checkmark.circle")
             }
