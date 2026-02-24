@@ -15,6 +15,8 @@ struct LoginView: View {
                 Text("\(loginViewVM.name.count)")
                 //  Устанавилваем padding справа, это отодвинет наш объект влево
                     .padding(.trailing, 25)
+                //  Терарный оператор для измнения цвета счётчика
+                    .foregroundStyle(loginViewVM.name.count <= 3 ? .red : .green)
             }
             Button(action: login) {
                 Label("OK", systemImage: "checkmark.circle")
