@@ -17,13 +17,13 @@ struct ContentView: View {
             
             Spacer()
             
-            ButtonView(contentViewVM: contentViewVM, buttonColor: .red, buttonTitle: contentViewVM.buttonTitle)
+            ButtonView(contentViewVM: contentViewVM, buttonColor: .red, buttonTitle: contentViewVM.buttonTitle, buttonAction: contentViewVM.startTimer)
             
             Spacer()
             
             Spacer()
             
-            ButtonView(contentViewVM: contentViewVM, buttonColor: .blue, buttonTitle: "LogOut")
+            ButtonView(contentViewVM: contentViewVM, buttonColor: .blue, buttonTitle: "LogOut", buttonAction: contentViewVM.logOut)
         }
     }
 }
@@ -39,10 +39,11 @@ struct ButtonView: View {
     @ObservedObject var contentViewVM: ContentViewViewModel
     let buttonColor: Color
     let buttonTitle: String
+    let buttonAction: () -> Void
     
     var body: some View {
         //  По-другому инициализируем кнопку, потому что хотим изменить внешний вид её
-        Button(action: { contentViewVM.startTimer() }) {
+        Button(action: { buttonAction() }) {
             Text(buttonTitle)
                 .font(.title)
                 .fontWeight(.bold)
@@ -57,3 +58,5 @@ struct ButtonView: View {
         )
     }
 }
+
+

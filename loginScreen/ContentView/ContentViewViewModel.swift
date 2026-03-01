@@ -9,6 +9,10 @@ final class ContentViewViewModel: ObservableObject {
     
     private var timer: Timer?
     
+    func logOut() {
+        print("Test")
+    }
+    
     func startTimer() {
         if counter > 0 {
             //  ScheduledTimer - функция, которая позволяет установить расписание для таймера
