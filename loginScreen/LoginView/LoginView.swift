@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject private var loginViewVM: LoginViewViewModel
+    @State private var showAlert = false
     
     var body: some View {
         VStack {
@@ -24,11 +25,18 @@ struct LoginView: View {
                     .foregroundStyle(loginViewVM.name.count >= 3 && loginViewVM.name.count < 20 ? .blue : .gray)
             }
         }
+        .alert("Ошибка", isPresented: $showAlert) {
+            Button("ОК", role: .cancel) {}
+        } message: {
+            Text("Имя пользователя не должно быть короче 3-ёх символов")
+        }
     }
     
     private func login() {
-        if !loginViewVM.name.isEmpty {
-            loginViewVM .isLoggedIn.toggle()
+        if !(loginViewVM.name.count < 3) {
+            loginViewVM.isLoggedIn.toggle()
+        } else {
+            showAlert = true
         }
     }
 }
