@@ -12,8 +12,8 @@ final class StorageManager {
     //  MARK: - METHODS
     
     //  Сохраняем переданные значения в UserDefaults под определенными ключами
-    func saveData(isLogin: Bool, userName: String) {
-        UserDefaults.standard.set(isLogin, forKey: theLoginKey)
+    func saveData(userName: String) {
+        UserDefaults.standard.set(true, forKey: theLoginKey)
         UserDefaults.standard.set(userName, forKey: theUserKey)
     }
     
@@ -25,5 +25,10 @@ final class StorageManager {
     //  Восстанавливаем данные - совершён вход или нет
     func fetchIsLogin() -> Bool {
         return UserDefaults.standard.bool(forKey: theLoginKey)
+    }
+    
+    //  Перед тем, как выйти из аккаунта
+    func logout() {
+        UserDefaults.standard.set(false, forKey: theLoginKey)
     }
 }

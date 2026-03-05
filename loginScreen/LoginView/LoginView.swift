@@ -33,8 +33,9 @@ struct LoginView: View {
     }
     
     private func login() {
-        if !(loginViewVM.name.count < 3) {
-            loginViewVM.isLoggedIn.toggle()
+        if loginViewVM.name.count >= 3 {
+            StorageManager.shared.saveData(userName: loginViewVM.name)
+            loginViewVM.isLoggedIn = true
         } else {
             showAlert = true
         }

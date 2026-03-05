@@ -12,6 +12,7 @@ final class ContentViewViewModel: ObservableObject {
     private var timer: Timer?
     
     func logOut() {
+        StorageManager.shared.logout()
         //  При передаче значения false свойству isLoggedIn, мы автоматически вернёмся на предыдущий экран
         loginViewVM?.isLoggedIn = false
     }
