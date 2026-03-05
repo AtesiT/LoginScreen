@@ -2,6 +2,8 @@ import Foundation
 import Combine
 
 final class ContentViewViewModel: ObservableObject {
+    //  Объявление переменной
+    var loginViewVM: LoginViewViewModel?
     //  Свойство, позволяющее сообщать об изменении объекта
     let objectWillChange = ObservableObjectPublisher()
     var counter = 3
@@ -10,7 +12,8 @@ final class ContentViewViewModel: ObservableObject {
     private var timer: Timer?
     
     func logOut() {
-        print("Test")
+        //  При передаче значения false свойству isLoggedIn, мы автоматически вернёмся на предыдущий экран
+        loginViewVM?.isLoggedIn = false
     }
     
     func startTimer() {

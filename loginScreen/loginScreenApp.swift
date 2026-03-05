@@ -9,6 +9,10 @@ struct loginScreenApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                //  Как только срабатывает метод жизненного цикла onAppear, мы передаём loginViewVM
+                .onAppear {
+                    contentViewVM.loginViewVM = loginViewVM
+                }
         }
         //  Предоставляем доступ из любого дочернего представления. Из любого места в программе, можем обратиться к данному экземпляру класса.
         .environmentObject(contentViewVM)
