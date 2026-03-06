@@ -1,6 +1,6 @@
 import Foundation
 
 struct User: Codable {
-    var isLoggedIn: Bool
+    var isLoggedIn = false
     var name = ""
 }

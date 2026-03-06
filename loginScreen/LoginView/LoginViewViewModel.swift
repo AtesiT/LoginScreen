@@ -1,11 +1,12 @@
-import SwiftUI
+import Foundation
 import Combine
 
 final class LoginViewViewModel: ObservableObject {
+    
     @Published var user = User()
     
     var nameIsValid: Bool {
-        user.name >= 3
+        user.name.count >= 3
     }
     
     var userNameCharCount: String {
