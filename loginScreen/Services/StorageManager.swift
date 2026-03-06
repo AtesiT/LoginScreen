@@ -1,34 +1,30 @@
-import Foundation
+import SwiftUI
 
 //  Создаём сингельтон для хранения данных один раз
 final class StorageManager {
     static let shared = StorageManager()
     
+    //  AppStorage позволяет использовать userDefaults, без использования методов .set и .object
+    @AppStorage("user") private var userData: Data?
+    
     private init() {}
-    
-    private let theUserKey = "userName"
-    private let theLoginKey = "isLogin"
-    
+        
     //  MARK: - METHODS
     
-    //  Сохраняем переданные значения в UserDefaults под определенными ключами
-    func saveData(userName: String) {
-        UserDefaults.standard.set(true, forKey: theLoginKey)
-        UserDefaults.standard.set(userName, forKey: theUserKey)
+    //  Сохранить в UserDefaults
+    func save(user: User) {
+        userData = try? JSONEncoder().encode(user)
     }
     
-    //  Восстанавливаем данные - имя пользователя
-    func fetchUserName() -> String {
-        return UserDefaults.standard.string(forKey: theUserKey) ?? ""
+    //  Восстанавливаем наши данные из UserDefaults. Метод возвращает готовый зкземпляр модели.
+    func fetchUser() -> User {
+        guard let userData else { return User() }
+        let user = try? JSONDecoder().decode(User.self, from: userData)
+        return user ?? User()
     }
     
-    //  Восстанавливаем данные - совершён вход или нет
-    func fetchIsLogin() -> Bool {
-        return UserDefaults.standard.bool(forKey: theLoginKey)
-    }
-    
-    //  Перед тем, как выйти из аккаунта
-    func logout() {
-        UserDefaults.standard.set(false, forKey: theLoginKey)
+    //  Очистить
+    func clear() {
+        userData = nil
     }
 }
