@@ -1,14 +1,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    //  Получаем доступ к экземпляру класса из окружения. Затем, определяем тип данных, но не инициализируем (потому что он уже иницииализирован и находится в окружении).
-    @EnvironmentObject private var contentViewVM: ContentViewViewModel
+    
     @EnvironmentObject private var loginViewVM: LoginViewViewModel
+    
+    private var contentViewVM: ContentViewViewModel
     
     var body: some View {
         
         VStack {
-            Text("Hello, \(loginViewVM.name)!")
+            Text("Hello, \(loginViewVM.user.name)!")
                 .padding(.top, 100)
                 .font(.largeTitle)
             Text(contentViewVM.counter.formatted())
@@ -17,46 +18,24 @@ struct ContentView: View {
             
             Spacer()
             
-            ButtonView(contentViewVM: contentViewVM, buttonColor: .red, buttonTitle: contentViewVM.buttonTitle, buttonAction: contentViewVM.startTimer)
+            ButtonView(
+                buttonColor: .red,
+                buttonTitle: contentViewVM.buttonTitle,
+                buttonAction: contentViewVM.startTimer
+            )
             
             Spacer()
             
             Spacer()
             
-            ButtonView(contentViewVM: contentViewVM, buttonColor: .blue, buttonTitle: "LogOut", buttonAction: contentViewVM.logOut)
+            ButtonView(
+                buttonColor: .blue,
+                buttonTitle: "LogOut",
+                buttonAction: contentViewVM.logout
+            )
         }
     }
 }
 
 #Preview {
-    ContentView()
-        //  Создаём локально в LivePreview
-        .environmentObject(ContentViewViewModel())
-        .environmentObject(LoginViewViewModel())
 }
-
-struct ButtonView: View {
-    @ObservedObject var contentViewVM: ContentViewViewModel
-    let buttonColor: Color
-    let buttonTitle: String
-    let buttonAction: () -> Void
-    
-    var body: some View {
-        //  По-другому инициализируем кнопку, потому что хотим изменить внешний вид её
-        Button(action: { buttonAction() }) {
-            Text(buttonTitle)
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundStyle(.white)
-        }
-        .frame(width: 200, height: 60)
-        .background(buttonColor)
-        .clipShape(.rect(cornerRadius: 20))
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(.black, lineWidth: 4)
-        )
-    }
-}
-
-
