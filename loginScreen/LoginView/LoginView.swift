@@ -21,20 +21,24 @@ struct TextFieldView: View {
     @ObservedObject var loginViewVM: LoginViewViewModel
     
     var body: some View {
-        TextField("Type your name...", text: $loginViewVM.user.name)
-            .multilineTextAlignment(.center)
-        HStack {
-            Spacer()
-            Text(loginViewVM.userNameCharCount)
-                .font(.callout)
-                .foregroundStyle(loginViewVM.nameIsValid ? .green : .red)
-                .padding([.top, .trailing])
+        ZStack {
+            TextField("Type your name...", text: $loginViewVM.user.name)
+                .multilineTextAlignment(.center)
+            HStack {
+                Spacer()
+                Text(loginViewVM.userNameCharCount)
+                    .font(.callout)
+                    .foregroundStyle(loginViewVM.nameIsValid ? .green : .red)
+                    .padding([.top, .trailing])
+            }
+            .padding(.bottom)
         }
-        .padding(.bottom)
     }
 }
 
-#Preview {
-    LoginView()
-        .environmentObject(LoginViewViewModel())
+struct Register_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+            .environmentObject(LoginViewViewModel())
+    }
 }

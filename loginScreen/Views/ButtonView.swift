@@ -17,4 +17,8 @@ struct ButtonView: View {
     }
 }
 
-
+struct ActionButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        ButtonView(title: "Some Action", color: .red, action: {})
+    }
+}

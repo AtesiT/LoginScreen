@@ -4,7 +4,7 @@ struct ContentView: View {
     
     @EnvironmentObject private var loginViewVM: LoginViewViewModel
     
-    private var contentViewVM: ContentViewViewModel
+    private let contentViewVM = ContentViewViewModel()
     
     var body: some View {
         
@@ -19,9 +19,9 @@ struct ContentView: View {
             Spacer()
             
             ButtonView(
-                buttonColor: .red,
-                buttonTitle: contentViewVM.buttonTitle,
-                buttonAction: contentViewVM.startTimer
+                title: contentViewVM.buttonTitle,
+                color: .red,
+                action: contentViewVM.startTimer
             )
             
             Spacer()
@@ -29,13 +29,17 @@ struct ContentView: View {
             Spacer()
             
             ButtonView(
-                buttonColor: .blue,
-                buttonTitle: "LogOut",
-                buttonAction: contentViewVM.logout
+                title: "LogOut",
+                color: .blue,
+                action: loginViewVM.logout
             )
         }
     }
 }
 
-#Preview {
+struct TimerView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(LoginViewViewModel())
+    }
 }
