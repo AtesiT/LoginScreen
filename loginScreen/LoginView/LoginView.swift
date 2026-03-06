@@ -5,6 +5,14 @@ struct LoginView: View {
     @EnvironmentObject private var loginViewVM: LoginViewViewModel
     
     var body: some View {
+        VStack {
+            TextFieldView(loginViewVM: loginViewVM)
+            Button(action: loginViewVM.login) {
+                Label("OK", systemImage: "checkmark.circle")
+            }
+            .disabled(!loginViewVM.nameIsValid)
+        }
+        .padding()
     }
 }
 
