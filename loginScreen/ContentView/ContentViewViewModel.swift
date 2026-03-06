@@ -1,25 +1,15 @@
 import Foundation
-import Combine
+import Observation
 
-final class ContentViewViewModel: ObservableObject {
-    //  Объявление переменной
-    var loginViewVM: LoginViewViewModel?
-    //  Свойство, позволяющее сообщать об изменении объекта
-    let objectWillChange = ObservableObjectPublisher()
+@Observable final class ContentViewViewModel {
+    
     var counter = 3
     var buttonTitle = "Start"
     
     private var timer: Timer?
     
-    func logOut() {
-        StorageManager.shared.logout()
-        //  При передаче значения false свойству isLoggedIn, мы автоматически вернёмся на предыдущий экран
-        loginViewVM?.isLoggedIn = false
-    }
-    
     func startTimer() {
         if counter > 0 {
-            //  ScheduledTimer - функция, которая позволяет установить расписание для таймера
             timer = Timer.scheduledTimer(
                 timeInterval: 1,
                 target: self,
@@ -31,7 +21,7 @@ final class ContentViewViewModel: ObservableObject {
         
         buttonDidTapped()
     }
-    //  @objc перед названием функции, потому что #selector  - API из Objective-C
+    
     @objc private func updateCounter() {
         if counter > 0 {
             counter -= 1
@@ -39,10 +29,8 @@ final class ContentViewViewModel: ObservableObject {
             killTimer()
             buttonTitle = "Reset"
         }
-        //  Отправляем сообщение о том, что наш класс изменился (свойство counter обновилось)
-        objectWillChange.send()
     }
-    //  Недостаточно timer'у присвоить nil - нужно сам timer выгрузить из системы (инвалидировать)
+    
     private func killTimer() {
         timer?.invalidate()
         timer = nil
@@ -55,7 +43,6 @@ final class ContentViewViewModel: ObservableObject {
         } else {
             buttonTitle = "Wait.."
         }
-        
-        objectWillChange.send()
     }
+
 }

@@ -10,6 +10,7 @@ struct LoginView: View {
             Button(action: loginViewVM.login) {
                 Label("OK", systemImage: "checkmark.circle")
             }
+            //  Если nameIsValid - отключаем действие кнопки, (Если в disabled - передать true, то кнопка будет отключена)
             .disabled(!loginViewVM.nameIsValid)
         }
         .padding()
